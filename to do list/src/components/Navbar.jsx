@@ -11,27 +11,29 @@ const Navbar = () => {
       const handleMenu = () => setMenu(!menu);
       return (
             <Container>
-                  <Logo>
-                        <a href="#">
-                              Y-Do List
-                        </a>
-                  </Logo>
-                  <Search>
-                        <Form>
-                              <input type="text" placeholder='Search...' />
-                              <SearchIcon />
-                        </Form>
-                  </Search>
-                  <Navigate>
-                        <a href="#">About Us</a>
-                        <a href="#">Our Blogs</a>
-                  </Navigate>
-                  <HamburgerMenu onClick={handleMenu}>
-                        {menu ? <MenuIcon size={30} /> : <CloseIcon />}
-                  </HamburgerMenu   >
-                  <>
-                        {!menu ? <MenuContent /> : <></>}
-                  </>
+                  <Wrapper>
+                        <Logo>
+                              <a href="#">
+                                    Y-Do List
+                              </a>
+                        </Logo>
+                        <Search>
+                              <Form>
+                                    <input type="text" placeholder='Search...' />
+                                    <SearchIcon />
+                              </Form>
+                        </Search>
+                        <Navigate>
+                              <a href="#">About Us</a>
+                              <a href="#">Our Blogs</a>
+                        </Navigate>
+                        <HamburgerMenu onClick={handleMenu}>
+                              {menu ? <MenuIcon size={30} /> : <CloseIcon />}
+                        </HamburgerMenu   >
+                        <>
+                              {!menu ? <MenuContent /> : <></>}
+                        </>
+                  </Wrapper>
             </Container>
       )
 }
@@ -39,23 +41,29 @@ const Navbar = () => {
 export default Navbar
 
 const Container = styled.div`
-  height: 3.5em;
-  width: 100%;
-  background-color: #1B1818;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 3rem;
-  @media (max-width: 764px){
-  padding: 0 2rem;
-    }
+  positiion: relative;
   
+  
+  `
+const Wrapper = styled.div`
+position: fixed;
+height: 3.5em;
+width: 100%;
+background-color: #1B1818;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 3rem;
+@media (max-width: 764px){
+padding: 0 2rem;
+  }
   `
 const Logo = styled.div`
   a{
       color: #fcfcfc;
       font-size: 24px;
       font-weight: 700;
+     
   }
 
 `

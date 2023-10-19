@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from 'styled-components';
 import Typed from 'react-typed';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
       return (

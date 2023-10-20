@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuContent from './MenuContent';
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -12,11 +13,13 @@ const Navbar = () => {
       return (
             <Container>
                   <Wrapper>
-                        <Logo>
-                              <a href="#">
-                                    Y-Do List
-                              </a>
-                        </Logo>
+                        <Link to='/'>
+                              <Logo>
+
+                                    <p>Y-Do List</p>
+
+                              </Logo>
+                        </Link>
                         <Search>
                               <Form>
                                     <input type="text" placeholder='Search...' />
@@ -46,6 +49,7 @@ const Container = styled.div`
   
   `
 const Wrapper = styled.div`
+overflow: hidden;
 position: fixed;
 height: 3.5em;
 width: 100%;
@@ -54,12 +58,12 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 0 3rem;
-@media (max-width: 764px){
-padding: 0 2rem;
+  @media (max-width: 764px){
+     padding: 0 2rem;
   }
   `
 const Logo = styled.div`
-  a{
+  p{
       color: #fcfcfc;
       font-size: 24px;
       font-weight: 700;

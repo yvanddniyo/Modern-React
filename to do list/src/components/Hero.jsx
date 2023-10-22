@@ -33,8 +33,8 @@ const Hero = () => {
 export default Hero
 
 const Container = styled.div`
-  width: 100vw;
-  height: 80vh;
+//   width: 100vw;
+  height: 100vh;
   color: #3E403F;
 //    background: #E5EAE7;
   display: block;

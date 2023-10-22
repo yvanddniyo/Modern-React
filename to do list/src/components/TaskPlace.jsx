@@ -16,7 +16,8 @@ const TaskPlace = () => {
       const maxTaskCount = 5;
       const [nextId, setNextId] = useState(4);
       const [editItemId, setEditItemId] = useState(null);
-      const [editedText, setEditedText] = useState('')
+      const [editedText, setEditedText] = useState('');
+      const [checkbox, setCheckbox] = useState(false);
 
 
 
@@ -78,6 +79,8 @@ const TaskPlace = () => {
             setEditedText('');
       };
 
+      const handleCheckbox = () => setCheckbox(!checkbox)
+
       return (
             <Container>
                   <WrapInput>
@@ -98,7 +101,13 @@ const TaskPlace = () => {
                         {addText.map((item) => (
 
                               <div key={item.id}>
-                                    <input type="checkbox" name="check" id="box" />
+                                    <input
+                                          type="checkbox"
+                                          name="check"
+                                          id="box"
+                                          value={checkbox}
+                                          onChange={handleCheckbox}
+                                    />
                                     {editItemId === item.id ? (
                                           <div className='editInput'>
                                                 <input
@@ -179,10 +188,10 @@ const InputTask = styled.div`
 
  div{
       p{
-           
+          
             &:after{
                  display: none;
-                 content: "Reset";
+                 content: "";
                  width: 20px;
                  height:12px;
                  color: white;

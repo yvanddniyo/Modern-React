@@ -13,4 +13,11 @@ export default BlogSection
 
 const Container = styled.div`
 padding-top: 4rem;
+height: 100vh;
+padding-bottom: 2rem;
+
+h1{
+      font-weight: 700;
+      text-align: center;
+}
 `

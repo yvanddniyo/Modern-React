@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route, Link, BrowserRouter } from 'react-router-dom';
 import TaskPlace from './components/TaskPlace';
 import BlogSection from './components/BlogSection';
+import Footer from './components/Footer'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/taskplace" element={<TaskPlace />} />
         <Route path="/blogsection" element={<BlogSection />} />
       </Routes >
+      <Footer />
     </Router>
   )
 }

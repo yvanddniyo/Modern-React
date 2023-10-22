@@ -7,19 +7,19 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const TaskPlace = () => {
       const [addText, setAddText] = useState([
-            { id: 0, text: "coding ", done: false },
-            { id: 1, text: "reading", done: true },
-            { id: 2, text: "gaming", done: false }
+            { id: 0, text: " set your task ", done: false },
+            // { id: 1, text: "reading", done: true },
+            // { id: 2, text: "gaming", done: false }
 
       ]) //display task state
       const [tasks, setTask] = useState('');  // typing task state
       const maxTaskCount = 5;
-      const [icon, setIcons] = useState('')
       const [nextId, setNextId] = useState(4);
-      const [editItem, setEditItem] = useState(null);
+      const [editItemId, setEditItemId] = useState(null);
+      const [editedText, setEditedText] = useState('')
 
 
-      const handleIconName = () => setIcons(!icon);
+
 
       const typeTask = (e) => setTask(e.target.value)
 
@@ -53,28 +53,33 @@ const TaskPlace = () => {
             const deleteIt = addText.filter(item => item.id !== id);
             setAddText(deleteIt);
       };
-      // console.log('Before edit:', addText);
-      const handleEdit = (id, newName) => {
-            const editIt = addText.map((item) => {
-                  if (item.id === id) {
-                        return { ...item, text: newName }
-                  }
-                  return item;
-            });
-            setAddText(editIt);
-            setEditItem(null);
+
+
+      const handleEdit = (id, text) => {
+
+            setEditItemId(id);
+            setEditedText(text);
             // Reset the editing state
       }
 
+      const handleDoneEditing = () => {
+            const editedTasks = addText.map((item) => {
+                  if (item.id === editItemId) {
+                        if (editedText) {
 
+                              return { ...item, text: editedText }
+                        }
+                  }
+                  return item
+            });
 
-      const closeIcon = () => {
-            if (!icon) {
-                  setIcons(!icon)
-            }
-      }
+            setAddText(editedTasks);
+            setEditItemId(null);
+            setEditedText('');
+      };
+
       return (
-            <Container onClick={closeIcon}>
+            <Container>
                   <WrapInput>
                         <h3>Keep tracking <span>your time </span> and task</h3>
                         <label htmlFor="">Add Your Daily Task:</label>
@@ -84,12 +89,9 @@ const TaskPlace = () => {
                                     onChange={typeTask}
                               />
                               <span onClick={submitTask} ><AddIcon size={30} /></span>
-                              <Reset>
-                                    <div>
-                                          {!icon ? <span>Reset</span> : null}
-                                          <p onClick={handleReset}><RestartAltIcon size={30} /></p>
-                                    </div>
-                              </Reset>
+                              <div className='reset-icon'>
+                                    <p onClick={handleReset}><RestartAltIcon size={30} /></p>
+                              </div>
                         </InputTask>
                   </WrapInput>
                   <TaskZone>
@@ -97,29 +99,28 @@ const TaskPlace = () => {
 
                               <div key={item.id}>
                                     <input type="checkbox" name="check" id="box" />
-                                    {editItem === item.id ? (
+                                    {editItemId === item.id ? (
                                           <div className='editInput'>
                                                 <input
                                                       type="text"
-                                                      value={item.text}
+                                                      value={editedText}
                                                       id='editTask'
                                                       placeholder='edit your text'
                                                       name="inputBox"
-                                                      onChange={(e) => handleEdit(
-                                                            item.id, e.target.value
+                                                      onChange={e => setEditedText(
+                                                            e.target.value
                                                       )
-
                                                       }
                                                 />
-                                                <button onClick={() => setEditItem(null)}>Done</button>
+                                                <button onClick={handleDoneEditing}>Done</button>
                                           </div>
                                     ) : (
 
                                           <p>{item.text}</p>
                                     )}
                                     <div>
-                                          <span onClick={() => setEditItem(item.id)}><EditOutlinedIcon /></span>
-                                          <span onClick={() => handleDelete(item.id)}><DeleteIcon /></span>
+                                          <span className='edit-icon' onClick={() => setEditItemId(item.id)}><EditOutlinedIcon /></span>
+                                          <span className='delete-icon' onClick={() => handleDelete(item.id)}><DeleteIcon /></span>
                                     </div>
                               </div>
                         )
@@ -167,7 +168,7 @@ const WrapInput = styled.div`
 const InputTask = styled.div`
  display: flex;
  background-color: white;
- gap: 6px;
+ gap: 12px;
  align-items: center;
  color: black;
  padding-right: 12px;
@@ -175,6 +176,28 @@ const InputTask = styled.div`
  align-items: center;
  outline: 5px solid #000;
  cursor: pointer;
+
+ div{
+      p{
+           
+            &:after{
+                 display: none;
+                 content: "Reset";
+                 width: 20px;
+                 height:12px;
+                 color: white;
+                 position: absolute;
+                 top: 24%;
+                 left:85%;
+                 }
+                 &:hover{
+                   &:after{
+                         display: block;
+                   }
+             }
+        }
+ }
+ 
  button{
       padding: 3px;
       font-weight: 700;
@@ -205,6 +228,15 @@ const TaskZone = styled.div`
       gap:4px;
       cursor: pointer;
 
+  .delete-icon{
+      color: red;
+  }
+  .edit-icon{
+      transition: all 1s ease-out;
+      &:hover{
+            color: green;
+      }
+  }
       
  }
  p{
@@ -217,36 +249,4 @@ const TaskZone = styled.div`
       padding: 20px 0px;
       width: 290px;
 `
-const Reset = styled.div`
-   position: relative;
-   display: flex;
-  
 
- span{
-     position: absolute;
-     opacity: 1;
-     background-color: gray;
-     padding: 3px;
-     top:-137%;
-     left: 30%;
-     border-radius: 8px 8px 8px 0px;
-     color: white;
-     transition: all 1s ease-out;
-    
-     &:after{
-          opacity: 1;
-          content: "";
-          width: 20px;
-          height:12px;
-          background-color: gray;
-          position: absolute;
-          top: 100%;
-          left: 0%;
-          border-radius: 0% 0% 100% 0%;
-          transition: all 1s ease-out;
-         
-         }
- }
- 
-
-`

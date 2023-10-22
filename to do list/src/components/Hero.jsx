@@ -36,7 +36,7 @@ const Container = styled.div`
   width: 100vw;
   height: 80vh;
   color: #3E403F;
-  background-color: #E5EAE7;
+//    background: #E5EAE7;
   display: block;
   margin: 0px auto;
   text-align: center;
@@ -52,6 +52,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   h1{
       text-align: center;
       padding-bottom: 12px;
@@ -64,12 +65,16 @@ const Wrap = styled.div`
       color: #000;
       opacity: 0.8;
       line-height: 1.5;
+      z-index: -999;
   }
   @media (max-width: 640px) {
       width: 90%;
+     
+
       }
   @media (min-width: 640px) {
       width: 40%;
+     
       }
   
 `
@@ -80,6 +85,7 @@ const Replay = styled.div`
   color: #36CA80;
   opacity: 0.9;
   padding-top: 23px;
+  z-index: -999;
 `
 const Button = styled.button`
   width: 150px;
@@ -89,11 +95,12 @@ const Button = styled.button`
   margin-top: 3em;
   font-weight: bold;
   opacity: 0.8;
-  background-color: #5B635F;
+  background: #5B635F;
   color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  z-index: -1;
   
   &:hover{
       background-color: #209CAE ;

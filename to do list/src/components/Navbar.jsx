@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { styled } from 'styled-components'
-import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuContent from './MenuContent';
@@ -20,15 +19,12 @@ const Navbar = () => {
 
                               </Logo>
                         </Link>
-                        <Search>
-                              <Form>
-                                    <input type="text" placeholder='Search...' />
-                                    <SearchIcon />
-                              </Form>
-                        </Search>
+
                         <Navigate>
-                              <a href="#">About Us</a>
-                              <a href="#">Our Blogs</a>
+                              <li>About Us</li>
+                              <Link to="/blogsection">
+                                    <li>Our Blogs</li>
+                              </Link>
                         </Navigate>
                         <HamburgerMenu onClick={handleMenu}>
                               {menu ? <MenuIcon size={30} /> : <CloseIcon />}
@@ -63,7 +59,10 @@ padding: 0 3rem;
   }
   `
 const Logo = styled.div`
+position: relative;
   p{
+      position: fixed;
+      top: 2%;
       color: #fcfcfc;
       font-size: 24px;
       font-weight: 700;
@@ -74,7 +73,7 @@ const Logo = styled.div`
 const Navigate = styled.div`
 display: flex;
 gap: 21px;
-a{
+li{
       color: #fcfcfc;
   }
   
@@ -82,17 +81,7 @@ a{
       display: none
     }
 `
-const Search = styled.div`
- background-color: white;
- 
- input[type="text"]{
-     width: 80%;
-     outline: none;
-     border:none;
-     padding: 0 7px;
- }
 
-`
 const Form = styled.div`
  display: flex;
  justify-content: space-between;

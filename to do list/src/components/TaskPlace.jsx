@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { useLocalStorage } from '@uidotdev/usehooks';
+
 
 const TaskPlace = () => {
-      const [addText, setAddText] = useState([
-            { id: 0, text: " set your task ", done: false },
-            // { id: 1, text: "reading", done: true },
-            // { id: 2, text: "gaming", done: false }
-
-      ]) //display task state
+      // const [items, setItems] = useState([]);
+      const [addText, setAddText] = useLocalStorage("addText", [])
       const [tasks, setTask] = useState('');  // typing task state
       const maxTaskCount = 5;
       const [nextId, setNextId] = useState(4);
       const [editItemId, setEditItemId] = useState(null);
       const [editedText, setEditedText] = useState('');
-      const [checkbox, setCheckbox] = useState(false);
+      const [checkbox, setCheckbox] = useLocalStorage("checkbox", false);
 
+
+
+      // useEffect(() => {
+      //       const storedTasks = JSON.parse(localStorage.getItem('addText'));
+
+      //       if (storedTasks) {
+      //             return setAddText(storedTasks);
+      //       }
+      //       // return storedTasks;
+      // }, []);
+
+      // useEffect(() => {
+      //       window.localStorage.setItem('addText', JSON.stringify(addText));
+      //       console.log(addText)
+      // }, [addText]);
 
 
 
@@ -79,7 +92,9 @@ const TaskPlace = () => {
             setEditedText('');
       };
 
-      const handleCheckbox = () => setCheckbox(!checkbox)
+      const handleCheckbox = () => setCheckbox(!checkbox);
+
+
 
       return (
             <Container>

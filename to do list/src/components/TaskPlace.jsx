@@ -8,43 +8,25 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 
 
 const TaskPlace = () => {
-      // const [items, setItems] = useState([]);
-      const [addText, setAddText] = useLocalStorage("addText", [])
+      const [addText, setAddText] = useLocalStorage("addText", [
+            { id: 0, text: "set your task", isChecked: false }
+      ])
       const [tasks, setTask] = useState('');  // typing task state
       const maxTaskCount = 5;
-      const [nextId, setNextId] = useState(4);
+      const [nextId, setNextId] = useState(1);
       const [editItemId, setEditItemId] = useState(null);
       const [editedText, setEditedText] = useState('');
-      const [checkbox, setCheckbox] = useLocalStorage("checkbox", false);
+      // const [checkbox, setCheckbox] = useLocalStorage("checkbox", false);
 
-
-
-      // useEffect(() => {
-      //       const storedTasks = JSON.parse(localStorage.getItem('addText'));
-
-      //       if (storedTasks) {
-      //             return setAddText(storedTasks);
-      //       }
-      //       // return storedTasks;
-      // }, []);
-
-      // useEffect(() => {
-      //       window.localStorage.setItem('addText', JSON.stringify(addText));
-      //       console.log(addText)
-      // }, [addText]);
-
-
-
+      console.log(addText);
       const typeTask = (e) => setTask(e.target.value)
-
-
 
       const submitTask = () => {
             if (tasks && addText.length < maxTaskCount) {
                   const newTask = {
                         id: nextId,
                         text: tasks,
-                        done: false,
+                        isChecked: false,
                   }
                   setAddText([...addText, newTask]);
                   setTask('');
@@ -62,19 +44,10 @@ const TaskPlace = () => {
             setAddText(resetIt);
       }
 
-
       const handleDelete = (id) => {
             const deleteIt = addText.filter(item => item.id !== id);
             setAddText(deleteIt);
       };
-
-
-      const handleEdit = (id, text) => {
-
-            setEditItemId(id);
-            setEditedText(text);
-            // Reset the editing state
-      }
 
       const handleDoneEditing = () => {
             const editedTasks = addText.map((item) => {
@@ -92,7 +65,18 @@ const TaskPlace = () => {
             setEditedText('');
       };
 
-      const handleCheckbox = () => setCheckbox(!checkbox);
+      const handleCheckbox = (id) => {
+            const updatedCheckbox = addText.map((itm) => {
+                  if (itm.id === id) {
+                        return { ...itm, isChecked: !itm.isChecked };
+                  }
+                  else {
+                        return itm;
+                  }
+            });
+
+            setAddText(updatedCheckbox);
+      }
 
 
 
@@ -113,15 +97,14 @@ const TaskPlace = () => {
                         </InputTask>
                   </WrapInput>
                   <TaskZone>
-                        {addText.map((item) => (
+                        {addText.map((item, itm) => (
 
                               <div key={item.id}>
                                     <input
                                           type="checkbox"
-                                          name="check"
-                                          id="box"
-                                          value={checkbox}
-                                          onChange={handleCheckbox}
+                                          checked={addText.isChecked}
+                                          value={true}
+                                          onChange={(e) => handleCheckbox(e.target.value)}
                                     />
                                     {editItemId === item.id ? (
                                           <div className='editInput'>
